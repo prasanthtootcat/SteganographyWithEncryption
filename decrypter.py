@@ -1,4 +1,4 @@
-import pyAesCrypt
+import pyAesCrypt, hashlib
 from os import stat, remove
 from PIL import Image 
 
@@ -50,4 +50,5 @@ def decode():
 
 if __name__ == '__main__' :  
     password = input('Enter the password:   ')
+    password = hashlib.sha512(password.encode('utf-8')).hexdigest()
     print(aes_dec('message.enc',password))

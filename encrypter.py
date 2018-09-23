@@ -1,4 +1,4 @@
-import pyAesCrypt
+import pyAesCrypt, hashlib
 from os import stat, remove
 from PIL import Image 
 
@@ -71,6 +71,7 @@ def encode():
         encode_enc(newimg, data)
         newimg.save('stegano_'+img)
         password = input('Enter the password for encryption:   ')
+        password = hashlib.sha512(password.encode('utf-8')).hexdigest()
         
         aes_enc('stegano_'+img,'message.enc', password)
 
