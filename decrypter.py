@@ -50,5 +50,9 @@ def decode():
 
 if __name__ == '__main__' :  
     password = input('Enter the password:   ')
+
+    #sha 512 hashing
     password = hashlib.sha512(password.encode('utf-8')).hexdigest()
+
+    #aes decryption and reverse steganography
     print(aes_dec('message.enc',password))

@@ -1,6 +1,6 @@
 import pyAesCrypt, hashlib
 from os import stat, remove
-from PIL import Image 
+from PIL import Image
 
 bufferSize = 64 * 1024
 
@@ -9,6 +9,8 @@ def aes_enc(inputFile, outputFile, password):
          with open(outputFile, "wb") as fOut:
              pyAesCrypt.encryptStream(fIn, fOut, password, bufferSize)
     fIn.close()
+    
+    #steganographed image removed for security purpose after usage
     remove(inputFile)
 
 def genData(data):  
@@ -67,9 +69,15 @@ def encode():
         if (len(data) == 0): 
             raise ValueError('Message is blank!')
 
-        newimg = image.copy() 
+        newimg = image.copy()
+
+        #encoding message inside image using steganography
         encode_enc(newimg, data)
+
+        #saving the steganographed image
         newimg.save('stegano_'+img)
+
+        #sha 512 hashing and aes encryption
         password = input('Enter the password for encryption:   ')
         password = hashlib.sha512(password.encode('utf-8')).hexdigest()
         
